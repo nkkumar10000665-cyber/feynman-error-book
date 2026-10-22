@@ -5,7 +5,7 @@
 window.APP_DATA = {
   "updatedAt": "2026-10-22 12:55",
   "student": {
-    "name": "珺博",
+    "name": "小费",
     "grade": "小学五年级上"
   },
   "xp": {
