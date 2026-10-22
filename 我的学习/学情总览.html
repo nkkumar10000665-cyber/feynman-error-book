@@ -140,41 +140,23 @@
 
 <div class="card" style="margin-bottom:16px">
   <div class="card-title"><span class="icon" style="background:var(--red-bg);color:var(--red)">🔥</span> 漏洞热力图</div>
-  <div style="font-size:13px;line-height:2;color:var(--text2)">
-      🔴 列方程解决实际问题 D · P0<br>
-      🟠 等量关系 C · 🟠 解简易方程 C · 🟠 等式的性质 C · 🟠 用字母表示数 C<br>
-      🟡 方程的意义 B
-    </div>
+  <div id="heatList" style="font-size:13px;line-height:2;color:var(--text2)"></div>
 </div>
 
 <div class="grid" style="grid-template-columns:1fr 1fr">
   <div class="card">
     <div class="card-title"><span class="icon" style="background:var(--orange-bg);color:var(--orange)">⚠️</span> 薄弱知识点排名</div>
-    <div style="font-size:13px;line-height:2;color:var(--text2)">
-      🔴 1. 列方程解决实际问题（四下K6）· D · 4题<br>
-      🟠 2. 等量关系的寻找与表示（四下K2）· C · 3题<br>
-      🟠 3. 解简易方程（四下K5）· C · 3题<br>
-      🟠 4. 等式的性质（四下K4）· C · 2题<br>
-      🟠 5. 用字母表示数（四下K1）· C · 2题<br>
-      🟠 6. 乘法分配律（四上K3/K4）· C · 1题<br>
-      🟠 7. 乘加乘减运算顺序（三上K1）· C · 1题
-    </div>
+    <div id="weakList" style="font-size:13px;line-height:2;color:var(--text2)"></div>
   </div>
   <div class="card">
     <div class="card-title"><span class="icon" style="background:var(--blue-bg);color:var(--blue)">🥧</span> 错因类型分布</div>
-    <div style="font-size:13px;line-height:2;color:var(--text2)">
-      粗心习惯型 4 次（45%）· 知识点漏洞型 3 次（33%）<br>
-      概念混淆型 1 次（11%）· 方法选择型 1 次（11%）· 蒙题 0
-    </div>
+    <div id="errorTypeList" style="font-size:13px;line-height:2;color:var(--text2)"></div>
 </div>
 </div>
 
 <div class="card" style="margin-bottom:16px">
   <div class="card-title"><span class="icon" style="background:var(--green-bg);color:var(--green)">🔄</span> 艾宾浩斯复习进度</div>
-  <div style="font-size:13px;line-height:2;color:var(--text2)">
-    9 道新题已排入：第1次 20 分钟后 → 第2次 1 小时后 → 第3次 1 天后 → 第4次 3 天后 → 第5次 7 天后 → 第6次 30 天后<br>
-    今日到期 9 道 · 超期 0 道 · 已完成 0 道
-  </div>
+  <div id="reviewList" style="font-size:13px;line-height:2;color:var(--text2)"></div>
 </div>
 
 <div class="grid" style="grid-template-columns:1fr 1fr">
@@ -200,6 +182,87 @@
 <p style="text-align:center;color:var(--text3);font-size:12px;margin-top:20px">
   费曼错题本Pro · 学情总览 · AI自动生成
 </p>
+
+<!-- 数据渲染：所有数字来自 ../data.js，AI 只改那一个文件 -->
+<script src="../data.js"></script>
+<script>
+(function(){
+  var d = window.APP_DATA;
+  if (!d) { console.warn('data.js 未加载'); return; }
+
+  var q = function(s){ return document.querySelector(s); };
+  var qa = function(s){ return document.querySelectorAll(s); };
+
+  var nums = qa('.stat-num'), subs = qa('.stat-sub');
+  var statRows = [
+    [d.xp.current, d.xp.level + ' ' + d.xp.title],
+    [d.stats.openBugs, '待修复漏洞 · 数学四下第5单元'],
+    [d.stats.pendingBoss, 'B001 待作答'],
+    [d.stats.habitErrors, d.stats.habitNote]
+  ];
+  statRows.forEach(function(row, i){
+    if (nums[i]) nums[i].textContent = row[0];
+    if (subs[i]) subs[i].textContent = row[1];
+  });
+
+  var lv = q('.xp-level');
+  if (lv) lv.innerHTML = d.xp.level + ' · <span>' + d.xp.title + '</span>';
+
+  var xn = q('.xp-num');
+  if (xn) xn.textContent = d.xp.current + ' XP';
+
+  var span = d.xp.levelEnd - d.xp.levelStart;
+  var gained = d.xp.current - d.xp.levelStart;
+  var bar = q('.xp-bar-fill');
+  if (bar) bar.style.width = Math.round(gained / span * 100) + '%';
+
+  var labels = qa('.xp-bar-label span');
+  if (labels.length === 3) {
+    labels[0].textContent = d.xp.levelStart + ' ' + d.xp.level;
+    labels[1].textContent = '距升级 ' + (d.xp.levelEnd - d.xp.current) + ' XP';
+    labels[2].textContent = d.xp.levelEnd + ' ' + d.xp.nextLevel;
+  }
+
+  var tv = qa('.today-val');
+  if (tv[0]) tv[0].textContent = d.today.newBugs;
+  if (tv[1]) tv[1].textContent = (d.today.xpGain > 0 ? '+' : '') + d.today.xpGain;
+
+  function icon(level) {
+    if (level === 'D' || level === 'C') return '🔴';
+    if (level === 'B') return '🟠';
+    return '🟢';
+  }
+
+  var wl = q('#weakList');
+  if (wl && d.weakPoints) {
+    wl.innerHTML = d.weakPoints.map(function(p){
+      return icon(p.level) + ' ' + p.rank + '. ' + p.kp + '（' + p.chapter + '）· ' +
+        p.level + ' · ' + p.count + '题';
+    }).join('<br>');
+  }
+
+  var el = q('#errorTypeList');
+  if (el && d.errorTypes) {
+    el.innerHTML = d.errorTypes.map(function(e){
+      return e.name + ' ' + e.count + ' 次（' + e.pct + '%）';
+    }).join(' · ');
+  }
+
+  var hl = q('#heatList');
+  if (hl && d.weakPoints) {
+    hl.innerHTML = d.weakPoints.map(function(p){
+      return icon(p.level) + ' ' + p.kp + ' ' + p.level + ' · ' + p.count + '题';
+    }).join('<br>');
+  }
+
+  var rl = q('#reviewList');
+  if (rl && d.review) {
+    rl.innerHTML = '9 道错题已排入复习计划：' + d.review.note + '<br>' +
+      '今日到期 ' + d.review.dueToday + ' 道 · 超期 ' + d.review.overdue +
+      ' 道 · 已完成 ' + d.review.done + ' 道';
+  }
+})();
+</script>
 
 </body>
 </html>

@@ -271,5 +271,60 @@ document.querySelectorAll('.copy-btn').forEach(function(btn){
 });
 </script>
 
+<!-- 数据渲染：所有数字来自 data.js，AI 只改那一个文件 -->
+<script src="data.js"></script>
+<script>
+(function(){
+  var d = window.APP_DATA;
+  if (!d) { console.warn('data.js 未加载'); return; }
+
+  var q = function(s){ return document.querySelector(s); };
+  var qa = function(s){ return document.querySelectorAll(s); };
+
+  var ut = q('.update-time');
+  if (ut) ut.textContent = '最后更新：' + d.updatedAt;
+
+  var nums = qa('.stat-num'), subs = qa('.stat-sub');
+  var statRows = [
+    [d.xp.current, d.xp.level + ' · ' + d.xp.title],
+    [d.stats.openBugs, d.stats.openBugNote],
+    [d.stats.overdueReviews, d.stats.overdueNote],
+    [d.stats.pendingBoss, d.stats.bossNote]
+  ];
+  statRows.forEach(function(row, i){
+    if (nums[i]) nums[i].textContent = row[0];
+    if (subs[i]) subs[i].textContent = row[1];
+  });
+
+  var lv = q('.xp-level');
+  if (lv) lv.innerHTML = d.xp.level + ' · <span>' + d.xp.title + '</span>';
+
+  var span = d.xp.levelEnd - d.xp.levelStart;
+  var gained = d.xp.current - d.xp.levelStart;
+  var xn = q('.xp-num');
+  if (xn) xn.textContent = d.xp.current + ' XP · 本级 ' + gained + ' / ' + span;
+
+  var bar = q('.xp-bar-fill');
+  if (bar) bar.style.width = Math.round(gained / span * 100) + '%';
+
+  var labels = qa('.xp-bar-label span');
+  if (labels.length === 3) {
+    labels[0].textContent = d.xp.levelStart + ' ' + d.xp.level;
+    labels[1].textContent = '距升级还差 ' + (d.xp.levelEnd - d.xp.current) + ' XP';
+    labels[2].textContent = d.xp.levelEnd + ' ' + d.xp.nextLevel;
+  }
+
+  var tl = q('.todo-list');
+  if (tl && d.todos) {
+    tl.innerHTML = d.todos.map(function(t){
+      return '<div class="todo-item"><span class="tag tag-' + t.color + '">' + t.tag +
+        '</span><div class="todo-text">' + t.text +
+        (t.cmd ? '<br><span class="todo-cmd">操作：' + t.cmd + '</span>' : '') +
+        '</div></div>';
+    }).join('');
+  }
+})();
+</script>
+
 </body>
 </html>
