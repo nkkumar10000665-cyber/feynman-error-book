@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>网页复习 — 费曼错题本Pro</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#f0f2f5;--card:#ffffff;--card2:#f8f9fb;--border:#e2e5ea;
+    --text:#1a1d29;--text2:#6b7280;--text3:#9ca3af;
+    --red:#dc2626;--red-bg:#fef2f2;--red-border:#fecaca;
+    --yellow:#d97706;--yellow-bg:#fffbeb;--yellow-border:#fde68a;
+    --green:#16a34a;--green-bg:#f0fdf4;--green-border:#bbf7d0;
+    --blue:#2563eb;--blue-bg:#eff6ff;
+    --purple:#7c3aed;--purple-bg:#f5f3ff;
+  }
+  body{background:var(--bg);color:var(--text);font-family:"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7;padding:16px;max-width:640px;margin:0 auto;min-height:100vh}
+  .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .back{color:var(--text2);font-size:13px;text-decoration:none}
+  .page-title{font-size:18px;font-weight:700}
+
+  .progress-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .progress-text{font-size:12px;color:var(--text2);white-space:nowrap}
+  .progress-bar{flex:1;height:8px;background:#eef0f4;border-radius:4px;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,#a78bfa,#60a5fa);border-radius:4px;transition:width .3s}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 18px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+  .q-tag{display:inline-block;font-size:11px;font-weight:600;color:var(--purple);background:var(--purple-bg);border:1px solid #ddd6fe;border-radius:5px;padding:2px 9px;margin-bottom:10px}
+  .q-id{font-size:12px;color:var(--text3);margin-left:6px}
+  .q-text{font-size:17px;font-weight:600;margin-bottom:18px;word-break:break-all}
+  .q-hint{font-size:12px;color:var(--text3);margin-bottom:16px}
+
+  .ans-box{border-radius:10px;padding:14px;margin-bottom:12px}
+  .ans-green{background:var(--green-bg);border:1px solid var(--green-border)}
+  .ans-yellow{background:var(--yellow-bg);border:1px solid var(--yellow-border)}
+  .ans-label{font-size:11px;font-weight:600;margin-bottom:6px}
+  .ans-green .ans-label{color:var(--green)}
+  .ans-yellow .ans-label{color:var(--yellow)}
+  .ans-body{font-size:15px;font-weight:600;word-break:break-all}
+
+  .btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent;margin-bottom:10px}
+  .btn:active{transform:scale(.98)}
+  .btn-primary{background:var(--purple);color:#fff}
+  .btn-green{background:var(--green);color:#fff}
+  .btn-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+  .btn-ghost{background:var(--card2);color:var(--text2);border:1px solid var(--border);font-size:14px;font-weight:600}
+
+  .center{text-align:center;padding-top:8vh}
+  .big-icon{font-size:44px;margin-bottom:10px}
+  .center h2{font-size:20px;margin-bottom:8px}
+  .center p{font-size:13px;color:var(--text2);margin-bottom:18px}
+  .score-row{display:flex;gap:12px;margin-bottom:18px}
+  .score-box{flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+  .score-num{font-size:30px;font-weight:800}
+  .score-label{font-size:12px;color:var(--text2)}
+  .wrong-list{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:18px;text-align:left}
+  .wrong-list h4{font-size:13px;color:var(--red);margin-bottom:8px}
+  .wrong-list p{font-size:13px;color:var(--text2);margin:0 0 4px}
+  #toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%) translateY(20px);background:#1a1d29;color:#fff;font-size:13px;padding:10px 18px;border-radius:8px;opacity:0;pointer-events:none;transition:all .25s;max-width:86%;text-align:center;z-index:99}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .hide{display:none}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="back" href="控制台.html">‹ 返回控制台</a>
+  <span class="page-title">🃏 网页复习</span>
+  <span></span>
+</div>
+
+<!-- 开始页 -->
+<div id="startPage" class="center hide">
+  <div class="big-icon">🧠</div>
+  <h2>今日复习挑战</h2>
+  <p id="startDesc">加载中…</p>
+  <button class="btn btn-primary" id="startBtn">开始复习</button>
+</div>
+
+<!-- 答题页 -->
+<div id="quizPage" class="hide">
+  <div class="progress-wrap">
+    <span class="progress-text" id="progressText">1 / 9</span>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+  <div class="card">
+    <span class="q-tag" id="qTag"></span><span class="q-id" id="qId"></span>
+    <div class="q-text" id="qText"></div>
+    <p class="q-hint" id="qHint">先在纸上或心里做出答案，再点下面的按钮对照 👇</p>
+    <div id="answerArea" class="hide">
+      <div class="ans-box ans-green">
+        <div class="ans-label">✅ 正确答案</div>
+        <div class="ans-body" id="aText"></div>
+      </div>
+      <div class="ans-box ans-yellow">
+        <div class="ans-label">⚠️ 当时错在哪</div>
+        <div class="ans-body" id="aNote" style="font-weight:500;font-size:14px"></div>
+      </div>
+      <div class="q-hint" style="margin-bottom:14px">对照后诚实自评——记错不丢人，蒙混才是漏洞</div>
+      <button class="btn btn-green" data-verdict="对">✅ 我答对了</button>
+      <button class="btn btn-red" data-verdict="错">❌ 没答对 / 没想起来</button>
+    </div>
+    <button class="btn btn-primary" id="revealBtn">👁 显示答案</button>
+  </div>
+</div>
+
+<!-- 结束页 -->
+<div id="donePage" class="center hide">
+  <div class="big-icon" id="doneIcon">🎉</div>
+  <h2>复习完成！</h2>
+  <p id="doneNote">AI 会根据这份结果更新复习记录和 XP</p>
+  <div class="score-row">
+    <div class="score-box"><div class="score-num" style="color:var(--green)" id="scoreRight">0</div><div class="score-label">答对</div></div>
+    <div class="score-box"><div class="score-num" style="color:var(--red)" id="scoreWrong">0</div><div class="score-label">答错</div></div>
+  </div>
+  <div class="wrong-list hide" id="wrongBox">
+    <h4>本轮答错的题</h4>
+    <div id="wrongItems"></div>
+  </div>
+  <button class="btn btn-primary" id="copyResultBtn">📋 复制结果 · 发给 AI 结算</button>
+  <button class="btn btn-ghost" onclick="location.reload()">🔄 再刷一轮</button>
+  <a class="btn btn-ghost" href="控制台.html" style="text-decoration:none;text-align:center">‹ 返回控制台</a>
+</div>
+
+<div id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  var d = window.APP_DATA;
+  var toastTimer = null;
+  function showToast(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+  }
+
+  var questions = (d && d.reviewQuestions) ? d.reviewQuestions.slice() : [];
+  // 随机打乱，防止背顺序
+  for (var i = questions.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = questions[i]; questions[i] = questions[j]; questions[j] = tmp;
+  }
+
+  var idx = 0, results = [];
+  var startPage = document.getElementById('startPage'),
+      quizPage = document.getElementById('quizPage'),
+      donePage = document.getElementById('donePage');
+
+  function show(page){
+    [startPage, quizPage, donePage].forEach(function(p){ p.classList.add('hide'); });
+    page.classList.remove('hide');
+  }
+
+  if (!questions.length) {
+    document.getElementById('startDesc').textContent = 'data.js 里还没有复习题，等 AI 录入错题后再来';
+    document.getElementById('startBtn').classList.add('hide');
+    show(startPage);
+    return;
+  }
+
+  document.getElementById('startDesc').textContent =
+    '本轮共 ' + questions.length + ' 题（已打乱顺序）· 先自己作答，再翻面对答案，诚实自评';
+
+  document.getElementById('startBtn').addEventListener('click', function(){ showCard(); });
+
+  function showCard(){
+    var c = questions[idx];
+    document.getElementById('progressText').textContent = (idx + 1) + ' / ' + questions.length;
+    document.getElementById('progressFill').style.width = Math.round(idx / questions.length * 100) + '%';
+    document.getElementById('qTag').textContent = c.tag;
+    document.getElementById('qId').textContent = '#' + c.id;
+    document.getElementById('qText').textContent = c.q;
+    document.getElementById('aText').textContent = c.ans;
+    document.getElementById('aNote').textContent = c.note;
+    document.getElementById('answerArea').classList.add('hide');
+    document.getElementById('revealBtn').classList.remove('hide');
+    show(quizPage);
+  }
+
+  document.getElementById('revealBtn').addEventListener('click', function(){
+    document.getElementById('answerArea').classList.remove('hide');
+    this.classList.add('hide');
+  });
+
+  document.querySelectorAll('[data-verdict]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var v = btn.getAttribute('data-verdict');
+      results.push({ id: questions[idx].id, v: v });
+      idx++;
+      if (idx < questions.length) { showCard(); } else { finish(); }
+    });
+  });
+
+  function finish(){
+    var right = results.filter(function(r){ return r.v === '对'; }).length;
+    var wrong = results.filter(function(r){ return r.v === '错'; });
+    document.getElementById('scoreRight').textContent = right;
+    document.getElementById('scoreWrong').textContent = wrong.length;
+    document.getElementById('progressFill').style.width = '100%';
+    if (wrong.length === 0) {
+      document.getElementById('doneIcon').textContent = '🏆';
+      document.getElementById('doneNote').textContent = '全对！漏洞修复速度拉满';
+    } else {
+      document.getElementById('wrongBox').classList.remove('hide');
+      document.getElementById('wrongItems').innerHTML = wrong.map(function(r){
+        return '<p>#' + r.id + ' ' + questions.filter(function(q){ return q.id === r.id; })[0].tag + '</p>';
+      }).join('');
+    }
+    show(donePage);
+  }
+
+  document.getElementById('copyResultBtn').addEventListener('click', function(){
+    var wrong = results.filter(function(r){ return r.v === '错'; }).map(function(r){ return r.id; });
+    var right = results.filter(function(r){ return r.v === '对'; }).map(function(r){ return r.id; });
+    var text = '网页复习完成 ' + new Date().toLocaleDateString('zh-CN') +
+      '：共' + results.length + '题，答对 ' + (right.length ? right.join('、') : '无') +
+      '；答错 ' + (wrong.length ? wrong.join('、') : '无') +
+      '。请按艾宾浩斯规则更新复习记录和掌握度。';
+    var btn = this;
+    var done = function(){ showToast('✅ 结果已复制，去对话框粘贴给 AI 结算'); };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done).catch(fallback);
+    } else { fallback(); }
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); }
+      catch(e) { window.prompt('复制这段话发给AI：', text); }
+      document.body.removeChild(ta);
+    }
+  });
+
+  show(startPage);
+})();
+</script>
+
+</body>
+</html>

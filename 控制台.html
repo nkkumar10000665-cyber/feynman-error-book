@@ -54,7 +54,7 @@
   .todo-cmd{color:var(--purple);font-weight:600}
   .empty-hint{text-align:center;padding:14px;color:var(--text3);font-size:13px}
 
-  .action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .action-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
   .action-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 8px;background:var(--card2);border:1px solid var(--border);border-radius:12px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent;transition:transform .1s,background .15s}
   .action-btn:active{transform:scale(.96);background:#eef0f4}
   .action-btn .a-icon{font-size:26px}
@@ -129,13 +129,13 @@
 
 <!-- 快捷操作 -->
 <div class="card">
-  <div class="card-title"><span class="icon" style="background:var(--purple-bg)">⚡</span> 快捷操作 · 点击复制指令，粘贴给 AI 就能开始</div>
+  <div class="card-title"><span class="icon" style="background:var(--purple-bg)">⚡</span> 快捷操作 · 复习点开就刷，其余点击复制给 AI</div>
   <div class="action-grid">
-    <button class="action-btn" data-cmd="我要录入错题"><span class="a-icon">📷</span><span class="a-name">录入错题</span><span class="a-sub">拍照发给 AI</span></button>
-    <button class="action-btn" data-cmd="开始复习"><span class="a-icon">🔄</span><span class="a-name">开始复习</span><span class="a-sub">艾宾浩斯6轮</span></button>
+    <a class="action-btn" href="复习.html" style="text-decoration:none"><span class="a-icon">🃏</span><span class="a-name">网页复习</span><span class="a-sub">点开就能刷</span></a>
+    <button class="action-btn" data-cmd="开始复习"><span class="a-icon">🔄</span><span class="a-name">AI复习</span><span class="a-sub">讲解+结算</span></button>
     <button class="action-btn" data-cmd="开始boss战"><span class="a-icon">⚔️</span><span class="a-name">boss战</span><span class="a-sub">变形题闯关</span></button>
+    <button class="action-btn" data-cmd="我要录入错题"><span class="a-icon">📷</span><span class="a-name">录入错题</span><span class="a-sub">拍照发 AI</span></button>
   </div>
-  <div class="link-row"><a class="link-btn" href="我的学习/学情总览.html">📊 查看学情总览</a></div>
 </div>
 
 <footer>
