@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>控制台 — 费曼错题本Pro</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#f0f2f5;--card:#ffffff;--card2:#f8f9fb;--border:#e2e5ea;
+    --text:#1a1d29;--text2:#6b7280;--text3:#9ca3af;
+    --red:#dc2626;--red-bg:#fef2f2;--red-border:#fecaca;
+    --yellow:#d97706;--yellow-bg:#fffbeb;--yellow-border:#fde68a;
+    --green:#16a34a;--green-bg:#f0fdf4;--green-border:#bbf7d0;
+    --blue:#2563eb;--blue-bg:#eff6ff;--blue-border:#bfdbfe;
+    --purple:#7c3aed;--purple-bg:#f5f3ff;--purple-border:#ddd6fe;
+    --orange:#ea580c;--orange-bg:#fff7ed;
+  }
+  body{background:var(--bg);color:var(--text);font-family:"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;padding:20px;max-width:1100px;margin:0 auto}
+  header{text-align:center;margin-bottom:20px}
+  h1{font-size:24px;margin-bottom:4px}
+  .subtitle{color:var(--text2);font-size:14px}
+  .subtitle .update-time{color:var(--text3)}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+  .stat-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .stat-label{font-size:12px;color:var(--text2)}
+  .stat-num{font-size:26px;font-weight:700;margin:2px 0}
+  .stat-sub{font-size:11px;color:var(--text3)}
+
+  .xp-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .xp-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+  .xp-level{font-size:17px;font-weight:700}
+  .xp-level span{color:var(--purple)}
+  .xp-num{font-size:13px;color:var(--text2)}
+  .xp-bar-bg{height:12px;background:#eef0f4;border-radius:6px;overflow:hidden}
+  .xp-bar-fill{height:100%;background:linear-gradient(90deg,#a78bfa,#60a5fa);border-radius:6px}
+  .xp-bar-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-top:5px}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .card-title{font-size:15px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .card-title .icon{width:26px;height:26px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+
+  .todo-list{display:flex;flex-direction:column;gap:8px}
+  .todo-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card2);font-size:13px}
+  .todo-item .tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:1px}
+  .tag-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+  .tag-yellow{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}
+  .tag-blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+  .todo-text{flex:1}
+  .todo-text b{font-weight:600}
+  .todo-cmd{color:var(--purple);font-weight:600}
+  .empty-hint{text-align:center;padding:14px;color:var(--text3);font-size:13px}
+
+  .fn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .fn-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px}
+  .fn-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .fn-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+  .fn-name{font-size:14px;font-weight:600}
+  .fn-desc{font-size:12px;color:var(--text2);margin-bottom:10px}
+  .cmd-row{display:flex;align-items:center;gap:8px}
+  .cmd-box{flex:1;background:#fff;border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:12px;color:var(--text);font-family:inherit;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .copy-btn{padding:6px 12px;border:1px solid var(--purple);background:var(--purple-bg);color:var(--purple);border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0;font-family:inherit}
+  .copy-btn:hover{background:var(--purple);color:#fff}
+  .copy-btn.copied{background:var(--green);border-color:var(--green);color:#fff}
+  .open-btn{width:100%;padding:7px;border:1px solid var(--blue);background:var(--blue-bg);color:var(--blue);border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:block;text-align:center}
+  .open-btn:hover{background:var(--blue);color:#fff}
+
+  .file-list{display:flex;flex-direction:column;gap:8px}
+  .file-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--card2);border:1px solid var(--border);border-radius:8px;font-size:13px}
+  .file-item .file-name{color:var(--text)}
+  .file-item .file-desc{color:var(--text2);font-size:12px}
+  .file-link{font-size:12px;color:var(--blue);text-decoration:none;font-weight:600}
+  .file-link:hover{text-decoration:underline}
+
+  .remind-steps{display:flex;flex-direction:column;gap:12px}
+  .remind-item{padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card2)}
+  .remind-item h4{font-size:13px;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+  .remind-item p{font-size:12px;color:var(--text2)}
+  .remind-item .remind-cmd{display:inline-block;background:#fff;border:1px dashed var(--purple);border-radius:6px;padding:4px 10px;margin-top:6px;font-size:12px;color:var(--purple)}
+  .badge{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600}
+  .badge-rec{background:var(--green-bg);color:var(--green)}
+  .badge-zero{background:var(--blue-bg);color:var(--blue)}
+
+  footer{text-align:center;color:var(--text3);font-size:12px;margin-top:20px}
+
+  @media(max-width:768px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .fn-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎮 费曼错题本Pro · 控制台</h1>
+  <p class="subtitle">每天打开这一页就够了 · 状态由 AI 自动更新 <span class="update-time">最后更新：2026-10-21 18:40</span></p>
+</header>
+
+<!-- 状态栏（AI自动更新） -->
+<div class="stats">
+  <div class="stat-box">
+    <div class="stat-label">当前XP</div>
+    <div class="stat-num" style="color:var(--purple)">1530</div>
+    <div class="stat-sub">青铜III · 中级战士</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">待修复漏洞</div>
+    <div class="stat-num" style="color:var(--red)">9</div>
+    <div class="stat-sub">S001–S009 · 数学四下第5单元</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">超期未复习</div>
+    <div class="stat-num" style="color:var(--red)">0</div>
+    <div class="stat-sub">9道新题，20分钟后第1次复习</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">待打boss战</div>
+    <div class="stat-num" style="color:var(--yellow)">1</div>
+    <div class="stat-sub">B001 认识方程 · 待作答</div>
+  </div>
+</div>
+
+<!-- XP进度 -->
+<div class="xp-section">
+  <div class="xp-header">
+    <div class="xp-level">青铜III · <span>中级战士</span></div>
+    <div class="xp-num">1530 XP · 本级 530 / 1000</div>
+  </div>
+  <div class="xp-bar-bg"><div class="xp-bar-fill" style="width:53%"></div></div>
+  <div class="xp-bar-label">
+    <span>1000 青铜III</span>
+    <span>距升级还差 470 XP</span>
+    <span>2000 白银I</span>
+  </div>
+</div>
+
+<!-- 今日待办（AI自动更新） -->
+<div class="card">
+  <div class="card-title"><span class="icon" style="background:var(--red-bg)">📋</span> 现在最该做的事（按紧急程度排序）</div>
+  <div class="todo-list">
+    <div class="todo-item"><span class="tag tag-red">必做</span><div class="todo-text"><b>打 boss 战 B001</b>——9个漏洞的变形题已出好（前置热身2道+基础+进阶+综合），做完拍照发回<br><span class="todo-cmd">操作：说"开始boss战"</span></div></div>
+    <div class="todo-item"><span class="tag tag-yellow">20分钟后</span><div class="todo-text">S001–S009 第1次复习（艾宾浩斯第一轮），先说"开始复习"</div></div>
+    <div class="todo-item"><span class="tag tag-blue">根因</span><div class="todo-text">先补 <b>四上·乘法分配律</b> 和 <b>三上·运算顺序</b>，再回来打方程题，否则会一直错同一处</div></div>
+  </div>
+</div>
+
+<!-- 功能导航 -->
+<div class="card">
+  <div class="card-title"><span class="icon" style="background:var(--purple-bg)">🗺️</span> 全部功能 · 点「复制」后粘贴给 AI</div>
+  <div class="fn-grid">
+    <div class="fn-card">
+      <div class="fn-head"><div class="fn-icon" style="background:var(--red-bg)">📷</div><div class="fn-name">录入错题</div></div>
+      <div class="fn-desc">拍照或截图发到对话框，AI自动识别年级、归档、五层分析、出boss战</div>
+      <div class="cmd-row"><div class="cmd-box">直接发照片即可（Win+Shift+S 截图）</div></div>
+    </div>
+    <div class="fn-card">
+      <div class="fn-head"><div class="fn-icon" style="background:var(--green-bg)">🔄</div><div class="fn-name">开始复习</div></div>
+      <div class="fn-desc">艾宾浩斯6轮复习，超期的优先推送，先出题后给答案</div>
+      <div class="cmd-row"><div class="cmd-box">开始复习</div><button class="copy-btn" data-cmd="开始复习">复制</button></div>
+    </div>
+    <div class="fn-card">
+      <div class="fn-head"><div class="fn-icon" style="background:var(--yellow-bg)">⚔️</div><div class="fn-name">打boss战</div></div>
+      <div class="fn-desc">变形题闯关，通关升级掌握度，全对+500XP</div>
+      <div class="cmd-row"><div class="cmd-box">开始boss战</div><button class="copy-btn" data-cmd="开始boss战">复制</button></div>
+    </div>
+    <div class="fn-card">
+      <div class="fn-head"><div class="fn-icon" style="background:var(--blue-bg)">📊</div><div class="fn-name">学情总览</div></div>
+      <div class="fn-desc">可视化仪表盘：XP曲线、漏洞热力图、复习进度、boss战绩</div>
+      <a class="open-btn" href="我的学习/学情总览.html">打开仪表盘</a>
+    </div>
+    <div class="fn-card">
+      <div class="fn-head"><div class="fn-icon" style="background:var(--purple-bg)">🗺️</div><div class="fn-name">看知识图谱</div></div>
+      <div class="fn-desc">某章节的知识网络，高亮薄弱点和跨章节关联</div>
+      <div class="cmd-row"><div class="cmd-box">看看[章节名]的知识图谱</div><button class="copy-btn" data-cmd="看看[章节名]的知识图谱">复制</button></div>
+    </div>
+    <div class="fn-card">
+      <div class="fn-head"><div class="fn-icon" style="background:var(--blue-bg)">🌐</div><div class="fn-name">知识全景</div></div>
+      <div class="fn-desc">全学科×全章节掌握度网格，标出知识链条断点</div>
+      <div class="cmd-row"><div class="cmd-box">看看我的知识全景</div><button class="copy-btn" data-cmd="看看我的知识全景">复制</button></div>
+    </div>
+    <div class="fn-card">
+      <div class="fn-head"><div class="fn-icon" style="background:var(--green-bg)">🔍</div><div class="fn-name">查历史错题</div></div>
+      <div class="fn-desc">6种检索：知识点/日期/学科/错因/掌握度/关键词</div>
+      <div class="cmd-row"><div class="cmd-box">查一下我所有的[学科]错题</div><button class="copy-btn" data-cmd="查一下我所有的[学科]错题">复制</button></div>
+    </div>
+    <div class="fn-card">
+      <div class="fn-head"><div class="fn-icon" style="background:var(--orange-bg)">🧪</div><div class="fn-name">蒙题检测</div></div>
+      <div class="fn-desc">蒙对的题标记出来，AI出验证题检测真假掌握</div>
+      <div class="cmd-row"><div class="cmd-box">这道题我蒙的</div><button class="copy-btn" data-cmd="这道题我蒙的">复制</button></div>
+    </div>
+    <div class="fn-card">
+      <div class="fn-head"><div class="fn-icon" style="background:var(--yellow-bg)">🗣️</div><div class="fn-name">费曼讲题</div></div>
+      <div class="fn-desc">把知识点讲给别人听，讲明白了才算真懂，+100XP</div>
+      <div class="cmd-row"><div class="cmd-box">帮我讲清楚[知识点]</div><button class="copy-btn" data-cmd="帮我讲清楚[知识点]">复制</button></div>
+    </div>
+    <div class="fn-card">
+      <div class="fn-head"><div class="fn-icon" style="background:var(--green-bg)">🏁</div><div class="fn-name">结束会话</div></div>
+      <div class="fn-desc">生成今日总结+复习提醒+待办清单，更新学情总览和控制台</div>
+      <div class="cmd-row"><div class="cmd-box">结束了</div><button class="copy-btn" data-cmd="结束了">复制</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- 文件入口 -->
+<div class="card">
+  <div class="card-title"><span class="icon" style="background:var(--blue-bg)">📂</span> 文件快捷入口</div>
+  <div class="file-list">
+    <div class="file-item"><span class="file-name">📊 学情总览仪表盘 <span class="file-desc">— XP曲线/热力图/复习进度</span></span><a class="file-link" href="我的学习/学情总览.html">打开 →</a></div>
+    <div class="file-item"><span class="file-name">📖 使用说明 <span class="file-desc">— 11大场景完整教程</span></span><a class="file-link" href="使用说明.html">打开 →</a></div>
+    <div class="file-item"><span class="file-name">🛠️ 搭建教程 <span class="file-desc">— 新同学从这里开始</span></span><a class="file-link" href="跟着做搭建教程.html">打开 →</a></div>
+    <div class="file-item"><span class="file-name">⭐ 成长档案 <span class="file-desc">— XP明细/成就墙/boss战绩</span></span><a class="file-link" href="我的学习/成长档案.md">打开 →</a></div>
+    <div class="file-item"><span class="file-name">⚙️ AI设定 <span class="file-desc">— 12条系统规则</span></span><a class="file-link" href="AI设定.md">打开 →</a></div>
+  </div>
+</div>
+
+<!-- 定时提醒 -->
+<div class="card">
+  <div class="card-title"><span class="icon" style="background:var(--orange-bg)">⏰</span> 定时提醒设置（三选一，都开也行）</div>
+  <div class="remind-steps">
+    <div class="remind-item">
+      <h4>方案一：每日战报 <span class="badge badge-rec">推荐</span></h4>
+      <p>Trae Work 定时任务，每天固定时间自动生成战报：昨日错题回顾（题目+错在哪）、XP变化、今日到期复习、待打boss战。让 AI 每天提醒你看错题和经验值变化。</p>
+      <div class="remind-cmd">帮我设一个每天晚上7点的定时任务：生成每日战报（昨日错题回顾+XP变化+今日复习任务），更新控制台和学情总览</div>
+    </div>
+    <div class="remind-item">
+      <h4>方案二：开机简报 <span class="badge badge-zero">零设置</span></h4>
+      <p>每次打开 Trae Work 打个招呼，AI 自动播报：等级XP、超期复习、待打boss战，并列出"现在可以做的事"菜单，直接选编号即可。</p>
+      <div class="remind-cmd">你好</div>
+    </div>
+    <div class="remind-item">
+      <h4>方案三：收藏本页 <span class="badge badge-zero">零设置</span></h4>
+      <p>把控制台加入浏览器收藏夹，每天点开看一眼状态。本页的状态栏和待办清单由 AI 在每次会话结束时自动更新。</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  费曼错题本Pro · 控制台 · 记住一个入口就够了
+</footer>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var text = btn.getAttribute('data-cmd');
+    var done = function(){
+      btn.textContent = '✓ 已复制';
+      btn.classList.add('copied');
+      setTimeout(function(){
+        btn.textContent = '复制';
+        btn.classList.remove('copied');
+      }, 1500);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(); });
+    } else {
+      fallback();
+    }
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); }
+      catch(e) { window.prompt('复制下面这句话发给AI：', text); }
+      document.body.removeChild(ta);
+    }
+  });
+});
+</script>
+
+</body>
+</html>

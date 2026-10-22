@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学情总览 — 费曼错题本Pro</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#f0f2f5;--card:#ffffff;--card2:#f8f9fb;--border:#e2e5ea;
+    --text:#1a1d29;--text2:#6b7280;--text3:#9ca3af;
+    --red:#e53e3e;--red-bg:#fef2f2;--red-border:#fecaca;
+    --yellow:#d97706;--yellow-bg:#fffbeb;--yellow-border:#fde68a;
+    --green:#16a34a;--green-bg:#f0fdf4;--green-border:#bbf7d0;
+    --blue:#2563eb;--blue-bg:#eff6ff;--blue-border:#bfdbfe;
+    --purple:#7c3aed;--purple-bg:#f5f3ff;--purple-border:#ddd6fe;
+    --orange:#ea580c;--orange-bg:#fff7ed;--orange-border:#fed7aa;
+  }
+  body{background:var(--bg);color:var(--text);font-family:"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;padding:20px;max-width:1200px;margin:0 auto}
+  h1{font-size:24px;margin-bottom:4px}
+  .subtitle{color:var(--text2);font-size:14px;margin-bottom:24px}
+  .grid{display:grid;gap:16px;margin-bottom:16px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .card-title{font-size:16px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+  .card-title .icon{width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+
+  .top-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+  .stat-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .stat-num{font-size:28px;font-weight:700;margin:4px 0}
+  .stat-label{font-size:12px;color:var(--text2)}
+  .stat-sub{font-size:11px;color:var(--text3);margin-top:2px}
+
+  .xp-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .xp-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .xp-level{font-size:18px;font-weight:700}
+  .xp-level span{color:var(--purple)}
+  .xp-num{font-size:14px;color:var(--text2)}
+  .xp-bar-bg{height:14px;background:#eef0f4;border-radius:7px;overflow:hidden}
+  .xp-bar-fill{height:100%;background:linear-gradient(90deg,#a78bfa,#60a5fa);border-radius:7px}
+  .xp-bar-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-top:6px}
+
+  .heatmap-table{width:100%;border-collapse:collapse;font-size:13px}
+  .heatmap-table th,.heatmap-table td{padding:8px 10px;text-align:center;border:1px solid var(--border)}
+  .heatmap-table th{background:var(--card2);color:var(--text2);font-weight:500;font-size:12px}
+  .heatmap-table td:first-child{text-align:left;font-weight:500;color:var(--text2);white-space:nowrap}
+  .heat-cell{width:60px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;margin:0 auto}
+  .heat-gray{background:#f8f9fb;color:var(--text3);border:1px solid var(--border)}
+  .heatmap-legend{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--text2);flex-wrap:wrap}
+  .heatmap-legend span{display:flex;align-items:center;gap:6px}
+  .legend-dot{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+  .bar-chart{display:flex;flex-direction:column;gap:10px}
+  .bar-row{display:flex;align-items:center;gap:12px}
+  .bar-label{width:140px;font-size:13px;color:var(--text2);flex-shrink:0;text-align:right}
+  .bar-track{flex:1;height:28px;background:var(--card2);border-radius:6px;overflow:hidden}
+  .bar-value{width:36px;font-size:13px;font-weight:600;text-align:left;flex-shrink:0}
+
+  .donut-wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+  .donut-svg{width:160px;height:160px;flex-shrink:0}
+  .donut-legend{display:flex;flex-direction:column;gap:8px}
+  .donut-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2)}
+  .donut-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+
+  .boss-list{display:flex;flex-direction:column;gap:8px}
+  .boss-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--card2);border-radius:8px;border:1px solid var(--border)}
+  .boss-status{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .boss-name{font-size:13px;flex:1;color:var(--text)}
+  .boss-tag{font-size:11px;padding:2px 8px;border-radius:4px;font-weight:500}
+
+  .eb-list{display:flex;flex-direction:column;gap:10px}
+  .eb-item{display:flex;align-items:center;gap:12px}
+  .eb-id{font-size:12px;font-weight:600;width:56px;color:var(--text2);flex-shrink:0}
+  .eb-track{flex:1;height:20px;background:var(--card2);border-radius:5px;overflow:hidden;display:flex;border:1px solid var(--border)}
+  .eb-seg{height:100%;flex:1;border-right:2px solid var(--card)}
+  .eb-seg:last-child{border-right:none}
+  .eb-status{font-size:11px;color:var(--text2);width:76px;text-align:right;flex-shrink:0}
+
+  .today-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .today-item{background:var(--card2);border-radius:8px;padding:14px;border:1px solid var(--border)}
+  .today-label{font-size:12px;color:var(--text2);margin-bottom:4px}
+  .today-val{font-size:20px;font-weight:700}
+
+  .empty-hint{text-align:center;padding:20px;color:var(--text3);font-size:14px}
+
+  @media(max-width:768px){
+    .top-stats{grid-template-columns:repeat(2,1fr)}
+    .today-grid{grid-template-columns:1fr}
+    .bar-label{width:100px;font-size:12px}
+    .donut-wrap{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<h1>学情总览</h1>
+<p class="subtitle">费曼错题本Pro · 搭建后 AI 自动更新此页面</p>
+
+<div class="top-stats">
+  <div class="stat-box">
+    <div class="stat-label">当前XP</div>
+    <div class="stat-num" style="color:var(--purple)">1530</div>
+    <div class="stat-sub">青铜III 中级战士</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">待修复漏洞</div>
+    <div class="stat-num" style="color:var(--red)">9</div>
+    <div class="stat-sub">数学四下·第5单元 认识方程</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">待打boss战</div>
+    <div class="stat-num" style="color:var(--yellow)">1</div>
+    <div class="stat-sub">B001 待作答</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">习惯性错误</div>
+    <div class="stat-num" style="color:var(--orange)">1</div>
+    <div class="stat-sub">会做但收尾出错 · 4次</div>
+  </div>
+</div>
+
+<div class="xp-section">
+  <div class="xp-header">
+    <div class="xp-level">青铜III · <span>中级战士</span></div>
+    <div class="xp-num">1530 XP</div>
+  </div>
+  <div class="xp-bar-bg">
+    <div class="xp-bar-fill" style="width:53%"></div>
+  </div>
+  <div class="xp-bar-label">
+    <span>1000 青铜III</span>
+    <span>距升级 470 XP</span>
+    <span>2000 白银I</span>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:16px">
+  <div class="card-title"><span class="icon" style="background:var(--purple-bg);color:var(--purple)">📈</span> XP成长曲线</div>
+  <div class="empty-hint">录入第一道错题后，成长曲线将在此显示</div>
+</div>
+
+<div class="card" style="margin-bottom:16px">
+  <div class="card-title"><span class="icon" style="background:var(--red-bg);color:var(--red)">🔥</span> 漏洞热力图</div>
+  <div style="font-size:13px;line-height:2;color:var(--text2)">
+      🔴 列方程解决实际问题 D · P0<br>
+      🟠 等量关系 C · 🟠 解简易方程 C · 🟠 等式的性质 C · 🟠 用字母表示数 C<br>
+      🟡 方程的意义 B
+    </div>
+</div>
+
+<div class="grid" style="grid-template-columns:1fr 1fr">
+  <div class="card">
+    <div class="card-title"><span class="icon" style="background:var(--orange-bg);color:var(--orange)">⚠️</span> 薄弱知识点排名</div>
+    <div style="font-size:13px;line-height:2;color:var(--text2)">
+      🔴 1. 列方程解决实际问题（四下K6）· D · 4题<br>
+      🟠 2. 等量关系的寻找与表示（四下K2）· C · 3题<br>
+      🟠 3. 解简易方程（四下K5）· C · 3题<br>
+      🟠 4. 等式的性质（四下K4）· C · 2题<br>
+      🟠 5. 用字母表示数（四下K1）· C · 2题<br>
+      🟠 6. 乘法分配律（四上K3/K4）· C · 1题<br>
+      🟠 7. 乘加乘减运算顺序（三上K1）· C · 1题
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="icon" style="background:var(--blue-bg);color:var(--blue)">🥧</span> 错因类型分布</div>
+    <div style="font-size:13px;line-height:2;color:var(--text2)">
+      粗心习惯型 4 次（45%）· 知识点漏洞型 3 次（33%）<br>
+      概念混淆型 1 次（11%）· 方法选择型 1 次（11%）· 蒙题 0
+    </div>
+</div>
+</div>
+
+<div class="card" style="margin-bottom:16px">
+  <div class="card-title"><span class="icon" style="background:var(--green-bg);color:var(--green)">🔄</span> 艾宾浩斯复习进度</div>
+  <div style="font-size:13px;line-height:2;color:var(--text2)">
+    9 道新题已排入：第1次 20 分钟后 → 第2次 1 小时后 → 第3次 1 天后 → 第4次 3 天后 → 第5次 7 天后 → 第6次 30 天后<br>
+    今日到期 9 道 · 超期 0 道 · 已完成 0 道
+  </div>
+</div>
+
+<div class="grid" style="grid-template-columns:1fr 1fr">
+  <div class="card">
+    <div class="card-title"><span class="icon" style="background:var(--yellow-bg);color:var(--yellow)">⚔️</span> boss战战绩</div>
+    <div class="empty-hint">通关第一场boss战后显示战绩</div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="icon" style="background:var(--green-bg);color:var(--green)">✅</span> 今日收获</div>
+    <div class="today-grid">
+      <div class="today-item">
+        <div class="today-label">新发现漏洞</div>
+        <div class="today-val" style="color:var(--red)">9</div>
+      </div>
+      <div class="today-item">
+        <div class="today-label">XP收获</div>
+        <div class="today-val" style="color:var(--purple)">+1500</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p style="text-align:center;color:var(--text3);font-size:12px;margin-top:20px">
+  费曼错题本Pro · 学情总览 · AI自动生成
+</p>
+
+</body>
+</html>

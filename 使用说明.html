@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>费曼错题本Pro · 使用说明</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#fff;color:#3f3f3f;line-height:1.92;font-size:16px;max-width:677px;margin:0 auto;padding:0 20px 80px}
+h1{font-size:24px;font-weight:700;margin:32px 0 12px;line-height:1.5;text-align:center}
+.subtitle{text-align:center;color:#999;font-size:14px;margin-bottom:24px}
+h2{font-size:20px;font-weight:700;margin:36px 0 16px;line-height:1.5;color:#1a1a1a}
+h3{font-size:17px;font-weight:600;margin:24px 0 12px;color:#333}
+p{margin:0 0 18px;font-size:16px}
+strong{font-weight:700;color:#1a1a1a}
+.divider{text-align:center;color:#ccc;margin:32px 0;font-size:14px}
+.chat-block{margin:20px 0;padding:16px;background:#f9f9f9;border-radius:10px}
+.chat-you{background:#dcfce7;border-radius:8px;padding:10px 14px;max-width:80%;margin:0 0 10px auto;font-size:15px}
+.chat-ai{background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px 14px;max-width:92%;font-size:15px}
+.chat-label{font-size:12px;color:#999;margin-bottom:4px;font-weight:600}
+.tip-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 16px;margin:16px 0;font-size:15px}
+.tip-box .label{color:#16a34a;font-weight:700;font-size:13px;margin-bottom:4px}
+.warn-box{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px 16px;margin:16px 0;font-size:15px}
+.warn-box .label{color:#c2410c;font-weight:700;font-size:13px;margin-bottom:4px}
+.qa{margin:12px 0;padding:14px 16px;background:#f9f9f9;border-radius:10px;border-left:3px solid #07c160}
+.qa .q{font-weight:700;color:#1a1a1a;font-size:15px;margin-bottom:6px}
+.qa .q::before{content:"Q ";color:#07c160}
+.qa .a{color:#555;font-size:15px}
+.qa .a::before{content:"A ";color:#16a34a;font-weight:700}
+.tbl{width:100%;border-collapse:collapse;font-size:15px;margin:12px 0}
+.tbl th{background:#f3f4f6;padding:10px;text-align:left;font-weight:600}
+.tbl td{padding:10px;border-bottom:1px solid #e5e7eb}
+.end-box{text-align:center;padding:32px 20px;background:linear-gradient(135deg,#f0f4ff,#f5f0ff);border-radius:12px;margin:32px 0}
+.end-box p{font-size:15px;color:#555}
+</style>
+</head>
+<body>
+
+<h1>费曼错题本Pro · 使用说明</h1>
+<div class="subtitle">搭建好了以后，这篇就够了 | 小学到大学都能用</div>
+
+<p>上一篇教程教你怎么搭建这套系统。这篇是搭好了以后，日常怎么用的说明。</p>
+
+<p>说白了就是——你每天对着 AI 说什么、做什么。看完这篇就全明白了。</p>
+
+<div class="divider">· · ·</div>
+
+<h2>系统到底在帮你干什么</h2>
+
+<p>你只需要做两件事：<strong>拍照和做题</strong>。其他全自动。</p>
+
+<p>拍错题发过去，AI 帮你识别题目、判断属于哪个知识点、归档到对应文件夹、分析错因（追到以前年级的根因）、联网核验公式定理、用大白话讲明白、出变形题。你做完变形题拍照发回去，AI 帮你批改、记经验值、升级。每天打开对话，AI 主动告诉你今天该复习什么、有哪些超期了。</p>
+
+<p>从头到尾你不用手抄一道题、不用管文件存哪、不用判断学科、不用算分数、不用记哪天该复习什么。</p>
+
+<div class="divider">· · ·</div>
+
+<h2>下次打开怎么用（设置只需做一次）</h2>
+
+<p>搭建完成以后，<strong>记忆、规则、知识图谱、错题记录全部保存在文件夹里</strong>。下次打开不需要重新设置任何东西。</p>
+
+<div class="tip-box">
+<div class="label">下次使用的完整步骤</div>
+<strong>第 1 步</strong>：打开 Trae Work<br>
+<strong>第 2 步</strong>：打开你的"费曼错题本Pro"文件夹——在 Trae Work 左上角点"打开文件夹"（或 文件 → 打开文件夹），选中你上次的那个文件夹<br>
+<strong>第 3 步</strong>：在对话框说"你好"或直接拍照发题<br>
+<strong>就这三步，完了。</strong>
+</div>
+
+<p><strong>怎么找到文件夹路径？</strong>在 Windows 文件资源管理器里打开"费曼错题本Pro"文件夹，点窗口上方的地址栏，路径变蓝后按 Ctrl+C 就复制了。推荐把文件夹放在 <code>D:\费曼错题本Pro</code> 这样的位置，不要放桌面。</p>
+
+<p>AI 会自动做这些事，不需要你操心：</p>
+
+<p>- <strong>读取记忆</strong>：AI 知道你是谁、几年级、薄弱科目是什么（上次设的记忆还在）<br>
+- <strong>加载规则</strong>：12 条规则自动生效，拍照就会触发五层分析、出 boss 战、记分、会话收尾总结（上次贴的规则还在）<br>
+- <strong>读取历史</strong>：AI 扫描你的易错记录.md、成长档案.md，知道你之前错了哪些题、XP 多少、哪些该复习了<br>
+- <strong>主动播报</strong>：AI 会告诉你今天有哪些到期复习、超期复习、未通关的 boss 战</p>
+
+<div class="warn-box">
+<div class="label">重要提醒</div>
+<p>每次打开<strong>要打开同一个文件夹</strong>。记忆和规则保存在 Trae Work 里不会丢，但知识图谱、错题记录、成长档案这些文件都在文件夹里。换文件夹 AI 就找不到你的历史数据了。</p>
+</div>
+
+<div class="divider">· · ·</div>
+
+<h2>不同年级怎么用</h2>
+
+<p>核心流程一样：拍照→分析→出题→通关。但不同学段侧重点不一样。</p>
+
+<p><strong>小学（3-6年级）</strong>：家长帮忙拍照，孩子看分析和做题。这个阶段重点是培养"错了就改"的习惯。分数运算、小数、方程这些基础漏洞如果小学不补，到初中会放大。家长可以和孩子一起看 AI 的分析，了解孩子到底哪里没搞明白。</p>
+
+<p><strong>初中（7-9年级）</strong>：学生自己操作。学科多了，物理化学加入了，跨学科关联开始出现。初二物理受力分析做错，根因可能是初一数学。跨年级追因从这里开始发挥大作用。中考前喊一句"冲刺计划"，系统按投入产出比排序。</p>
+
+<p><strong>高中（10-12年级）</strong>：时间紧，最怕"做题很多但不知道哪里不会"。系统帮你精准定位到几年前的知识缺口（函数导数根因可能在初中二次函数），出的题就是你需要补的，不浪费时间。高考前用冲刺计划功能。</p>
+
+<p><strong>大学</strong>：自己操作，把系统当"期末复习引擎"。高数、线代、专业课都一样——发搭建指令时把学科换成你正在学的科目就行。四六级、考研错题也能录。期末或考研前喊一句"冲刺计划"，AI 按投入产出比排复习顺序。</p>
+
+<p>不管你在哪个年级，系统都帮你做三件事：<strong>找到薄弱点</strong>（不是"这道题错了"，是"哪个知识点没掌握"）、<strong>补齐知识缺口</strong>（追溯到以前年级的漏洞，一并修复）、<strong>提升学习质量</strong>（变形题强化，做对才算真修好）。</p>
+
+<div class="divider">· · ·</div>
+
+<h2>每天怎么用</h2>
+
+<p>日常流程：打开控制台或看播报（30 秒）→先复习到期题目（3-5 分钟）→再录今天遇到的错题（30 秒）→做 AI 出的变形题（按难度）→拍答案发回去（30 秒）→说"结束了"收今日总结。</p>
+
+<p>就这么简单。你可以在写完作业后顺手做，也可以攒到周末一起做。</p>
+
+<div class="tip-box">
+<div class="label">控制台：每天打开这一页就够了</div>
+双击文件夹里的 <strong>控制台.html</strong>（浏览器打开），一页看全：当前XP、待修复漏洞、超期复习、待打boss战、按紧急程度排好的待办清单。想用哪个功能，点旁边的「复制」按钮，把指令粘贴给 AI——<strong>不用背任何指令</strong>。建议加入浏览器收藏夹。
+</div>
+
+<div class="tip-box">
+<div class="label">每日战报：AI 每晚主动找你</div>
+设了每日战报定时任务的话（搭建教程关卡五），每天晚上 7 点 AI 自动推送：今天错了什么题（题目+错在哪+正确思路）、XP 变化、明天该复习什么。当天没打开系统也不怕漏——晚上这份总结保证你天天看到错题和经验值变化。
+</div>
+
+<div class="tip-box">
+<div class="label">推荐节奏</div>
+🌅 早上上学前：瞄一眼控制台，有没有超期复习题<br>
+📚 放学后：先复习到期题目，再录今天错题，做完说"结束了"<br>
+🌙 晚上7点：看每日战报推送（自动，不用操作）<br>
+📊 每周末：让 AI 出本周学习报告
+</div>
+
+<h2>怎么把错题发给 AI</h2>
+
+<p>在电脑前有三种方式把错题发给 AI：</p>
+
+<table class="tbl">
+<tr><th>方式</th><th>怎么操作</th><th>推荐场景</th></tr>
+<tr><td>截图（推荐）</td><td>按 <code>Win + Shift + S</code>，框选错题区域，粘贴到对话框</td><td>电子试卷、网课截图</td></tr>
+<tr><td>拍照</td><td>用电脑摄像头拍试卷，或手机拍后传到电脑，拖进对话框</td><td>纸质试卷、作业本</td></tr>
+<tr><td>打字描述</td><td>直接打字：题目内容 + 你的答案 + 正确答案</td><td>简单题目、没有照片</td></tr>
+</table>
+
+<div class="tip-box">
+<div class="label">截图小技巧</div>
+按 <code>Win + Shift + S</code> 调出 Windows 截图工具，框选错题区域（题目+你的答案+正确答案都要框进去），截图自动复制到剪贴板。回到 Trae Work 对话框，按 <code>Ctrl + V</code> 粘贴发送。AI 自动识别，不用打字说明学科。
+</div>
+
+<h3>手机远程录题（可选，非必须）</h3>
+
+<p>学生上学期间可能不方便用手机。如果家长想通过手机远程帮孩子录错题，Trae Work 支持三种方式：</p>
+
+<table class="tbl">
+<tr><th>方式</th><th>适合谁</th><th>怎么操作</th></tr>
+<tr><td>TRAE 手机 App</td><td>有智能手机的家庭</td><td>手机拍照，选"电脑"作为运行环境，发送。电脑端 AI 自动处理</td></tr>
+<tr><td>飞书</td><td>用飞书的家庭</td><td>插件市场→应用授权→飞书→链接，授权后在飞书里发照片给 TraeWork 智能体</td></tr>
+<tr><td>微信 ClawBot</td><td>用微信的家庭</td><td>微信装 ClawBot 官方插件，按提示绑定 TraeWork，微信里发照片</td></tr>
+</table>
+
+<div class="warn-box">
+<div class="label">前提条件（手机远程方案）</div>
+电脑需要保持开机状态，Trae Work 在运行中。任务下发后即使手机退到后台也会继续执行，完成后自动同步结果到手机。这部分是<strong>可选功能</strong>，不影响系统核心使用。
+</div>
+
+<div class="divider">· · ·</div>
+
+<h2>各种场景怎么操作</h2>
+
+<h3>你做错了一道题</h3>
+
+<p>拿出手机，把错题拍下来——题目、你的答案、正确答案都要拍到。发给 AI。不用打字，不用说明学科。</p>
+
+<div class="chat-block">
+<div class="chat-label">你</div>
+<div class="chat-you">[一张试卷照片]</div>
+<div class="chat-label">AI 自动回复</div>
+<div class="chat-ai">📍 识别到：数学 / 初二上 / 三角形<br>❌ 你的答案：5≤x≤13<br>✅ 正确答案：5&lt;x&lt;13<br>分析：根因在初一下的"不等式"...<br>讲解：两边之和>第三边，取等号就变直线了...<br>boss战：3 道变形题 + 1 道前置补习题<br>+100 XP</div>
+</div>
+
+<p>AI 自动干了 7 件事：识别题目→判断学科年级→归档→五层分析→讲解→出题→记经验值。</p>
+
+<h3>做完了变形题</h3>
+
+<div class="chat-block">
+<div class="chat-label">你</div>
+<div class="chat-you">[做完的答案照片]</div>
+<div class="chat-label">AI 自动判题</div>
+<div class="chat-ai">📋 第1题 ✅ 第2题 ✅ 第3题 ✅ 前置题 ✅<br>🎉 全对！通关！+500 XP<br>掌握程度 C→B<br>新成就：首杀 boss！</div>
+</div>
+
+<p>如果有错题，AI 会指出哪题错了、错在哪，换个角度再讲一遍，再出一道同类题。不通关不扣经验值，只加做对的题的分。继续做直到通关。</p>
+
+<h3>蒙对的题</h3>
+
+<p>做对了一道题但心里没底？告诉 AI。</p>
+
+<div class="chat-block">
+<div class="chat-label">你</div>
+<div class="chat-you">[照片] 这题我蒙的</div>
+<div class="chat-label">AI</div>
+<div class="chat-ai">排雷！验证题来了：[出 1 道变形题]<br>做完拍照发过来。</div>
+</div>
+
+<p>验证题做对了 = 你是真会的，+50 经验值。做错了 = 确认是蒙的，+150 经验值（比普通错题多 50，因为发现了隐藏漏洞），然后出 boss 战修复。</p>
+
+<div class="tip-box">
+<div class="label">为什么要检测蒙题</div>
+蒙对的题不是真会。到考试时会暴露。早发现早修复。
+</div>
+
+<h3>补录以前的错题</h3>
+
+<p>翻出以前的试卷、错题本，拍照发过去就行。AI 会自动判断属于哪个年级，归档到正确位置。不需要你手动分类。从小学到大学的错题，全部可以放进来。</p>
+
+<h3>每天打开先看播报+行动菜单</h3>
+
+<p>每次你打开 Trae Work 开始当天的对话，AI 会主动播报今天的学习状态，然后列出你现在可以做的事。</p>
+
+<div class="chat-block">
+<div class="chat-label">你</div>
+<div class="chat-you">你好</div>
+<div class="chat-label">AI 自动播报</div>
+<div class="chat-ai">📅 今日播报<br>📊 当前XP：2300 | 等级：白银I（知识猎人）<br>🔥 连续打卡：第1天<br>⏰ 超期复习：2道（英语一般过去时、历史鸦片战争）<br>🎯 今日到期：1道（物理K9平均速度）<br>⚔️ 未通关boss战：0<br><br>现在可以做的事：<br>1️⃣ 复习超期的英语一般过去时 → 说"开始复习"<br>2️⃣ 看知识全景图 → 说"看看我的知识全景"<br>3️⃣ 录入新错题 → 直接发照片</div>
+<div class="chat-label">你</div>
+<div class="chat-you">1</div>
+</div>
+
+<p>回复编号就行，不用背指令。超期的优先处理——超期越久忘得越多。</p>
+
+<h3>开始复习（艾宾浩斯曲线）</h3>
+
+<p>每天先复习，再录新题。对 AI 说"今天该复习了"。</p>
+
+<div class="chat-block">
+<div class="chat-label">你</div>
+<div class="chat-you">今天该复习了</div>
+<div class="chat-label">AI 自动推送</div>
+<div class="chat-ai">📚 今日复习（共3道待复习）<br>第1题（录入3天前，第2次复习）：<br>题目：解方程 x² - 5x + 6 = 0<br>请作答</div>
+</div>
+
+<div class="chat-block">
+<div class="chat-label">你回答后</div>
+<div class="chat-ai">✅ 完全正确！+30 XP<br>📊 掌握程度：C（连续答对中，即将升B）<br>📅 下次复习：后天（3天后）<br>继续第2题？</div>
+</div>
+
+<p>完全答对→掌握度提升，间隔变长。答错了→20分钟后重来。连续3次答对→标记为"已掌握"，不再推送。不用自己记时间。</p>
+
+<h3>检索历史内容</h3>
+
+<p>积累了几十道上百道错题后，找历史内容一句话搞定。</p>
+
+<div class="chat-block">
+<div class="chat-label">你</div>
+<div class="chat-you">找我所有关于因式分解的错题</div>
+<div class="chat-label">AI 自动检索</div>
+<div class="chat-ai">📋 检索结果（共3条）<br>1. [2026-08-15] 数学/八年级上 S012 因式分解 错因：公式记混 掌握程度：C<br>2. [2026-08-20] 数学/八年级上 S018 提公因式法 错因：符号漏项 掌握程度：B<br>3. [2026-08-25] 数学/八年级上 S023 十字相乘法 错因：方法选择型 掌握程度：C</div>
+</div>
+
+<p>支持按知识点、日期、学科、错因类型、掌握状态、关键词六种方式检索。</p>
+
+<h3>看你的习惯性错误</h3>
+
+<p>AI 会自动统计你的错误类型，发现规律后主动提醒。</p>
+
+<div class="chat-block">
+<div class="chat-label">你</div>
+<div class="chat-you">我最常犯什么错</div>
+<div class="chat-label">AI 自动分析</div>
+<div class="chat-ai">⚠️ 发现规律！<br>你已经有5道题都是因为"符号陷阱"出错：<br>- S003 移项时忘了变号<br>- S007 括号展开后负号分配出错<br>- W002 物理公式中正负号搞反<br>这是你的习惯性错误！<br>📚 专项训练建议：每天做3道符号专项练习<br>+150 XP 发现习惯性错误模式！</div>
+</div>
+
+<h3>用自己的话讲一遍</h3>
+
+<p>这是终极验证。对 AI 说"帮我讲清楚三角形三边关系"，AI 让你先用自己的话讲一遍。你讲完了，AI 判断对不对。讲对了 +100 经验值，掌握程度直接升到 A。能用自己的话给别人讲明白，才是真会了。</p>
+
+<h3>结束会话，收今日总结</h3>
+
+<p>每天做完题，说一句"结束了"，AI 自动生成三样东西：</p>
+
+<div class="chat-block">
+<div class="chat-label">你</div>
+<div class="chat-you">结束了</div>
+<div class="chat-label">AI 自动总结</div>
+<div class="chat-ai">📊 今日总结（2026-09-05）<br>━━━━━━━━━━━<br>📝 录入错题：2道<br>- S008 数学·解方程（去括号）— 括号前是减号没全部变号<br>- E002 英语·方位介词 — in the front of 和 in front of 混了<br>📈 XP变化：+400（2300 → 2700）<br>⚔️ boss战：通关0场 / 进行中1场 / 未开始1场<br>⚠️ 习惯性错误预警：符号陷阱已第4次出现<br><br>🔄 复习任务<br>🆕 今日新增：S008、E002 → 第1次复习已超期，请尽快复习！<br>🔴 超期：E001、L001（8月22日录入）<br><br>📋 下一步建议<br>1. 先做超期的4道复习<br>2. 完成S008的boss战<br>3. 符号陷阱已4次，建议专项攻克</div>
+</div>
+
+<p>总结里有什么：今天录了几道题（每道一句话错因）、XP 变化、boss 战进度、知识点升降级、复习提醒（新增的、明天到期的、超期的红色警告）、下一步待办。AI 同时更新控制台和学情总览仪表盘的数据。</p>
+
+<h3>看知识图谱和知识全景</h3>
+
+<p>想看某个章节的知识网络，或者看全部学科的掌握情况，一句话：</p>
+
+<div class="chat-block">
+<div class="chat-label">你</div>
+<div class="chat-you">看看第3章一元一次方程的知识图谱</div>
+<div class="chat-label">AI</div>
+<div class="chat-ai">🗺️ 第3章知识图谱<br>🔴 当前薄弱：K5 解方程（去括号）— C级<br>🔴 薄弱前置：第2章 K6 去括号法则 — C级（你第3章学不好的根因在这）<br>🔵 后续关联：初二下一元一次不等式、一次函数都要用这章<br>🔗 关联错题：S008</div>
+</div>
+
+<div class="chat-block">
+<div class="chat-label">你</div>
+<div class="chat-you">看看我的知识全景</div>
+<div class="chat-label">AI</div>
+<div class="chat-ai">🌐 知识全景图<br>🔴 C级 5个：数学K5、K6 / 英语方位介词、一般过去时 / 历史鸦片战争<br>🟡 B级 2个：数学合并同类项 / 英语现在进行时<br>⬜ 未学：其余章节<br>⚠️ 知识链条断点：第3章K5（C级）依赖第2章K6（C级）——先修K6再打K5的boss战</div>
+</div>
+
+<p>知识图谱高亮三类信息：红色是你的薄弱点（前置的和当前的），蓝色是将来哪个年级还会用到，链接是有错题关联的知识点。知识全景图则汇总所有学科的掌握度网格，一眼看出知识链条断点在哪。</p>
+
+<div class="divider">· · ·</div>
+
+<h2>怎么查看进度和报告</h2>
+
+<p>两个入口：可视化页面 + 随时问 AI。</p>
+
+<div class="tip-box">
+<div class="label">可视化页面（推荐）</div>
+<strong>控制台.html</strong>：双击打开，状态栏+待办清单+全部功能指令一键复制<br>
+<strong>学情总览.html</strong>：双击打开，XP成长曲线、漏洞热力图（哪个章节最薄弱一眼看出）、薄弱知识点排名、错因类型分布、艾宾浩斯复习进度、boss战战绩<br>
+两个页面都由 AI 在每次会话收尾和每日战报时自动更新，不用手动维护。
+</div>
+
+<table class="tbl">
+<tr><th>你想要什么</th><th>发什么</th><th>AI 回什么</th></tr>
+<tr><td>看等级</td><td>"看看我的等级"</td><td>经验值、等级、已解锁成就</td></tr>
+<tr><td>看本周战报</td><td>"本周战报"</td><td>发现/修复漏洞数、经验值变化、下周建议</td></tr>
+<tr><td>看漏洞清单</td><td>"我的漏洞清单"</td><td>所有待修复的知识点列表</td></tr>
+<tr><td>搜历史错题</td><td>"找我所有关于[知识点]的错题"</td><td>按知识点/日期/学科/错因/掌握度检索结果</td></tr>
+<tr><td>看习惯性错误</td><td>"我最常犯什么错"</td><td>错误模式统计+专项训练建议</td></tr>
+<tr><td>看知识图谱</td><td>"看看[章节]的知识图谱"</td><td>知识网络+薄弱点高亮+错题链接</td></tr>
+<tr><td>看知识全景</td><td>"看看我的知识全景"</td><td>全学科掌握度网格+知识链条断点</td></tr>
+<tr><td>追溯根因</td><td>"这个知识点的前置知识是什么"</td><td>知识链条+各环节掌握度+修复建议</td></tr>
+<tr><td>收今日总结</td><td>"结束了"</td><td>今日总结+复习提醒+待办清单</td></tr>
+<tr><td>考前冲刺</td><td>"下周考试（期末/小升初/中考/高考），给我冲刺计划"</td><td>按投入产出比排序的修复优先级</td></tr>
+<tr><td>出练习题</td><td>"给我出 5 道[知识点]的题"</td><td>5 道针对你薄弱点的题</td></tr>
+<tr><td>出模拟卷</td><td>"出一套[学科]模拟卷"</td><td>一套针对你薄弱点的模拟卷</td></tr>
+<tr><td>讲知识点</td><td>"帮我讲清楚[知识点]"</td><td>费曼验证：你讲一遍，AI 判断</td></tr>
+</table>
+
+<div class="tip-box">
+<div class="label">每天、每周日和每月 1 号自动出报告</div>
+如果你在搭建时设了定时任务（教程关卡五）：每天 19:00 自动推送每日战报（昨日错题回顾+XP变化+明日复习），每周日 20:00 自动出周报，每月 1 号 10:00 自动做全局扫描。不设也能手动喊。
+</div>
+
+<div class="divider">· · ·</div>
+
+<h2>经验值和等级</h2>
+
+<p>各种行为都有经验值：发现漏洞 +100，蒙题地雷 +150，基础变形题 +50，进阶变形题 +100，综合变形题 +200，boss 战全通关 +500，复习答对 +30，知识点完全掌握 +200，每日打卡 +30，连续 7 天 +200，连续 30 天 +1000，跨学科漏洞 +300，跨年级追因 +200，发现习惯性错误模式 +150，讲题给别人 +100。</p>
+
+<p>等级一共 13 级，从青铜I（0 XP）一路升到王者（40000+）：青铜I-III（0-2000）→ 白银I-III（2000-7000）→ 黄金I-III（7000-16000）→ 铂金I-II（16000-30000）→ 钻石（30000-40000）→ 王者（40000+）。每级都有称号，比如白银I叫"知识猎人"，王者叫"传奇"。经验值越高，称号越酷。</p>
+
+<p>成就感是学习最好的驱动力——发现漏洞不是失败，是升级的经验值。</p>
+
+<div class="divider">· · ·</div>
+
+<h2>拍照要注意什么</h2>
+
+<p>题目和答案都要拍到，一页放不下就拍两张。光线要足、手不要抖。试卷摊平再拍。多题一起拍也行，AI 会逐道分析。手写答案也能识别，写清楚就行。</p>
+
+<p>照片模糊 AI 会告诉你具体哪里看不清，补拍那道题就行。</p>
+
+<div class="warn-box">
+<div class="label">提醒一下</div>
+做完变形题之前不要发其他照片，不然 AI 会以为你在发新的错题。
+</div>
+
+<div class="divider">· · ·</div>
+
+<h2>新学期怎么办</h2>
+
+<p>开学了，对 AI 说一句话就行：</p>
+
+<div class="chat-block">
+<div class="chat-label">你</div>
+<div class="chat-you">我到[新年级，如：初一/初三上/高二下]了，请帮我搜索人教版[新年级]各学科教材目录，新建对应的文件夹和知识图谱。以前的错题记录保留。</div>
+<div class="chat-label">AI</div>
+<div class="chat-ai">收到！已搜索新年级教材目录，新建了文件夹和知识图谱。之前的错题记录全部保留。经验值和等级继续累积。系统更新完成！</div>
+</div>
+
+<p>同时在"记忆"功能里更新一下年级信息。比如当前年级改成"初二下"，已学过年级加上"初二下"。高中生同理。</p>
+
+<p>从小学到大学，每个学期新建一次文件夹，历史错题永久保留，经验值持续累积。系统跟着你一起升级。</p>
+
+<div class="divider">· · ·</div>
+
+<h2>常见问题</h2>
+
+<div class="qa">
+<div class="q">AI 识别错了学科或年级怎么办？</div>
+<div class="a">直接告诉它："这题是初一的，不是初二的。"AI 会重新归档。知识图谱是按真实教材目录生成的，不会错。</div>
+</div>
+<div class="qa">
+<div class="q">做变形题时不会做怎么办？</div>
+<div class="a">直接问 AI："第 2 题不会，给我提示。"AI 会给提示而不是直接给答案，引导你思考。还是不会就换个角度再讲一遍。</div>
+</div>
+<div class="qa">
+<div class="q">照片不清楚 AI 看不懂怎么办？</div>
+<div class="a">AI 会告诉你具体哪里看不清，比如"第 3 题的答案看不清"。你补拍那道题就行。</div>
+</div>
+<div class="qa">
+<div class="q">没有错题，平时能用吗？</div>
+<div class="a">能。你可以让 AI 出练习题："给我出 5 道三角形三边关系的题"，或者"出一套数学模拟卷"。AI 会根据你的薄弱点出题。</div>
+</div>
+<div class="qa">
+<div class="q">小学生能用吗？</div>
+<div class="a">能，3-6 年级都可以。建议家长帮忙拍照和操作，孩子专注看分析和做题。小学阶段重点是培养"错了就改"的习惯，基础概念漏洞现在不补，到初中会放大。</div>
+</div>
+<div class="qa">
+<div class="q">高中生时间紧，用这个划算吗？</div>
+<div class="a">非常划算。高中最怕"做题很多但不知道哪里不会"。系统帮你精准定位到几年前的知识缺口，出的题就是你需要补的，不浪费时间。考前用冲刺计划功能，按投入产出比排序。</div>
+</div>
+<div class="qa">
+<div class="q">跨年级是什么意思？</div>
+<div class="a">你做错了一道初二的题，AI 可能发现根因是初一的某个知识没掌握。这时 AI 会同时标记初一和初二两个知识点，出的 boss 战里会包含初一的补习题。做对了同时修复两个年级的知识漏洞。</div>
+</div>
+<div class="qa">
+<div class="q">跨学科是什么意思？</div>
+<div class="a">如果你在 3 道以上错题中涉及 2 个以上学科，AI 会检查是不是同一个底层能力在多个学科都出错。比如"计算粗心"可能同时出现在数学和物理里。AI 会提醒你注意这个共性问题。</div>
+</div>
+<div class="qa">
+<div class="q">复习是怎么安排的？需要自己记时间吗？</div>
+<div class="a">不需要自己记。系统按艾宾浩斯遗忘曲线自动安排：录入后 20 分钟、1 小时、1 天、3 天、7 天、30 天各复习一次。每次打开对话 AI 会告诉你今天有哪些到期复习。连续 3 次答对就标记为"已掌握"，不再推送。</div>
+</div>
+<div class="qa">
+<div class="q">AI 讲的东西准确吗？会不会教错？</div>
+<div class="a">系统有联网核验机制——凡是涉及公式、定理、概念定义，AI 都会自动联网确认来源，并标注"已核验·来源：XXX 教材"。如果无法确认，会明确告知"需要进一步确认"，不会凭空给出不确定的答案。</div>
+</div>
+<div class="qa">
+<div class="q">数据会丢吗？</div>
+<div class="a">所有文件都在你电脑上的"费曼错题本Pro"文件夹里。不会丢。建议定期备份整个文件夹到 U 盘或云盘。</div>
+</div>
+<div class="qa">
+<div class="q">家长不在电脑前能帮孩子录错题吗？</div>
+<div class="a">可以，但这是可选功能。最简单的方式是学生用电脑截图（Win + Shift + S）或直接打字描述题目。如果家长想通过手机远程录题，可以用 TRAE 手机 App、飞书智能体或微信 ClawBot（详见使用说明"手机远程录题"部分）。电脑需要保持开机状态。学生上学期间不方便用手机也不影响，回家坐电脑前就能完成全部操作。</div>
+</div>
+<div class="qa">
+<div class="q">下次打开需要重新设置吗？</div>
+<div class="a">不需要。记忆和规则保存在 Trae Work 里不会丢，知识图谱和错题记录存在文件夹里。下次打开同一个文件夹，直接拍照发题或说"你好"就行。AI 会自动加载记忆和规则、读取历史数据、主动播报今日待办。设置只需要做一次。</div>
+</div>
+<div class="qa">
+<div class="q">换了一台电脑怎么办？</div>
+<div class="a">把整个"费曼错题本Pro"文件夹复制到新电脑，在 Trae Work 里打开这个文件夹。知识图谱、错题记录、成长档案全在文件夹里，跟着走。记忆和规则需要在新电脑的 Trae Work 里重新设一次（因为这两样保存在软件里不在文件夹里），从 AI设定.md 里复制粘贴即可。</div>
+</div>
+<div class="qa">
+<div class="q">不用 Trae Work，用其他 AI 工具行吗？</div>
+<div class="a">行。这套系统的核心是文件夹结构和提示词规则，不绑死在某个工具上。任何能读写文件、能识别图片的 AI 工具都可以用，比如 WorkBuddy、ima 等。方法一样：建文件夹、发搭建指令、设记忆和规则。只是手机联动等功能可能不同。</div>
+</div>
+
+<div class="divider">· · ·</div>
+
+<h2>一句话速查表</h2>
+
+<table class="tbl">
+<tr><th>你想要什么</th><th>发什么</th></tr>
+<tr><td>录入错题</td><td>[拍照]</td></tr>
+<tr><td>检测蒙题</td><td>[拍照] + "这题我蒙的"</td></tr>
+<tr><td>交 boss 战答案</td><td>[答案拍照]</td></tr>
+<tr><td>开始复习</td><td>"今天该复习了"</td></tr>
+<tr><td>看等级</td><td>"看看我的等级"</td></tr>
+<tr><td>看战报</td><td>"本周战报"</td></tr>
+<tr><td>看漏洞</td><td>"我的漏洞清单"</td></tr>
+<tr><td>搜历史</td><td>"找我所有关于[知识点]的错题"</td></tr>
+<tr><td>看习惯性错误</td><td>"我最常犯什么错"</td></tr>
+<tr><td>考前冲刺</td><td>"下周考试（期末/小升初/中考/高考），给我冲刺计划"</td></tr>
+<tr><td>出练习题</td><td>"给我出 5 道[知识点]的题"</td></tr>
+<tr><td>出模拟卷</td><td>"出一套[学科]模拟卷"</td></tr>
+<tr><td>费曼验证</td><td>"帮我讲清楚[知识点]"</td></tr>
+<tr><td>换学期</td><td>"我到[新年级]了，新建文件夹和知识图谱"</td></tr>
+<tr><td>补旧错题</td><td>[旧试卷拍照]</td></tr>
+</table>
+
+<div class="end-box">
+<p>拍照发过去，AI 干全部，你只管做题。</p>
+<p>发现一个漏洞 = 找到一个 boss 弱点，修掉就升级。</p>
+<p><strong>从小学到大学，知识一个一个补扎实，漏洞一个一个消灭。</strong></p>
+</div>
+
+</body>
+</html>
