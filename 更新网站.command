@@ -22,15 +22,27 @@ if git diff --cached --quiet; then
 fi
 
 git commit -m "更新：$DATE"
-if ! git push; then
+
+# 推送：先直连，失败自动走本地代理（端口 7890）重试
+if git push; then
   echo ""
-  echo "❌ 推送失败。检查网络，或先在终端跑一次 git push 看报错。"
+  echo "✅ 已推送（$DATE）。约 1 分钟后刷新网页即可看到新数据。"
   echo ""
   read -n 1 -s -r -p "按任意键关闭…"
-  exit 1
+  exit 0
+fi
+
+echo "直连失败，尝试走本地代理…"
+if git -c http.proxy=http://127.0.0.1:7890 push; then
+  echo ""
+  echo "✅ 已通过代理推送（$DATE）。约 1 分钟后刷新网页即可看到新数据。"
+  echo ""
+  read -n 1 -s -r -p "按任意键关闭…"
+  exit 0
 fi
 
 echo ""
-echo "✅ 已推送（$DATE）。约 1 分钟后刷新网页即可看到新数据。"
+echo "❌ 推送失败。检查网络/代理是否开启，或在终端跑一次 git push 看报错。"
 echo ""
 read -n 1 -s -r -p "按任意键关闭…"
+exit 1
