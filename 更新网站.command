@@ -23,8 +23,8 @@ fi
 
 git commit -m "更新：$DATE"
 
-# 推送：先直连，失败自动走本地代理（端口 7890）重试
-if git push; then
+# 推送：强制 HTTP/1.1（规避 HTTP/2 断流），先直连，失败自动走本地代理（端口 7890）重试
+if git -c http.version=HTTP/1.1 push; then
   echo ""
   echo "✅ 已推送（$DATE）。约 1 分钟后刷新网页即可看到新数据。"
   echo ""
@@ -33,7 +33,7 @@ if git push; then
 fi
 
 echo "直连失败，尝试走本地代理…"
-if git -c http.proxy=http://127.0.0.1:7890 push; then
+if git -c http.version=HTTP/1.1 -c http.proxy=http://127.0.0.1:7890 push; then
   echo ""
   echo "✅ 已通过代理推送（$DATE）。约 1 分钟后刷新网页即可看到新数据。"
   echo ""
